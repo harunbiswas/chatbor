@@ -15,7 +15,6 @@ export default function Chatbot() {
   const [chatData, setChatData] = useState([]);
   const [inputData, setInputData] = useState("");
   const { url, data } = values;
-  data.sceneId = data.sceneId + "galadriel";
 
   useEffect(() => {
     scrollToBottom();
@@ -31,20 +30,46 @@ export default function Chatbot() {
       axios
         .post(`${url}/session/open`, data)
         .then((d) => {
-          console.log(d);
-          // axios
-          //   .get(`${url}/session/${d.data.sessionId}/close`)
-          //   .then((d1) => {
-          //     console.log(d1);
-          //   })
-          //   .catch((e) => {
-          //     console.log(e);
-          //   });
+          axios
+            .post(`${url}/session/${d.data.sessionId}/message`, {
+              message: inputData,
+            })
+            .then((d2) => {
+              axios
+                .get(`${url}/events/${data?.serverId}`)
+                .then((d3) => {
+                  console.log(d3.data);
+                  d3.data.forEach((item) => {
+                    if (item.type === "text") {
+                      if (item.text) {
+                        setChatData((prev) => {
+                          return [...prev, { message: item.text }];
+                        });
+                      }
+                    }
+                  });
+                  axios
+                    .get(`${url}/session/${d.data.sessionId}/close`)
+                    .then((d1) => {
+                      console.log(d1);
+                    })
+                    .catch((e) => {
+                      console.log(e);
+                    });
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         })
         .catch((e) => {
           console.log(e);
         });
     }
+    setInputData("");
   };
 
   const inputHandler = (e) => {
