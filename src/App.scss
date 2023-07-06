@@ -128,7 +128,7 @@ img {
       }
     }
     .buttons {
-      width: 30%;
+      width: 20%;
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -146,6 +146,10 @@ img {
 
         &:hover {
           color: #fff;
+        }
+
+        &.active {
+          color: $color-button;
         }
       }
     }
@@ -193,6 +197,47 @@ img {
         border-radius: 5px;
       }
 
+      .audio {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+
+        .range {
+          width: 100px;
+          height: 4px;
+          background-color: $color-bg;
+          border-radius: 4px;
+          position: relative;
+
+          span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background-color: $color-button;
+            border-radius: 40px;
+          }
+        }
+
+        button {
+          background-color: transparent;
+          border: 1px solid $color-white;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          color: $color-white;
+          font-size: 16px;
+
+          &.pdd {
+            padding-left: 4px;
+          }
+        }
+      }
+
       &.user {
         justify-content: flex-end;
 
@@ -203,6 +248,59 @@ img {
         p {
           background-color: $color-button;
         }
+      }
+    }
+
+    // typing dot
+
+    .chat-bubble {
+      background-color: $color-bg-1;
+      padding: 15px 10px;
+      border-radius: 5px;
+      display: inline-block;
+      width: 100px;
+      margin-left: 30px;
+    }
+    .typing {
+      align-items: center;
+      display: flex;
+      height: 17px;
+    }
+    .typing .dot {
+      animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
+      background-color: $color-white; //rgba(20,105,69,.7);
+      border-radius: 50%;
+      height: 7px;
+      margin-right: 4px;
+      vertical-align: middle;
+      width: 7px;
+      display: inline-block;
+    }
+    .typing .dot:nth-child(1) {
+      animation-delay: 200ms;
+    }
+    .typing .dot:nth-child(2) {
+      animation-delay: 300ms;
+    }
+    .typing .dot:nth-child(3) {
+      animation-delay: 400ms;
+    }
+    .typing .dot:last-child {
+      margin-right: 0;
+    }
+
+    @keyframes mercuryTypingAnimation {
+      0% {
+        transform: translateY(0px);
+        background-color: #6cad96; // rgba(20,105,69,.7);
+      }
+      28% {
+        transform: translateY(-7px);
+        background-color: #9ecab9; //rgba(20,105,69,.4);
+      }
+      44% {
+        transform: translateY(0px);
+        background-color: #b5d9cb; //rgba(20,105,69,.2);
       }
     }
   }
