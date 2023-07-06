@@ -15,6 +15,7 @@ $color-button: #6600ff;
 
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
+  color: transparent;
 }
 img {
   width: 100%;
@@ -23,8 +24,8 @@ img {
 }
 
 .app {
-  width: 600px;
-  height: 800px;
+  width: 100%;
+  height: 400px;
   margin: 20px auto;
 }
 
@@ -62,6 +63,7 @@ img {
     .info {
       h4 {
         font-size: 24px;
+        text-transform: capitalize;
       }
     }
   }
@@ -151,6 +153,25 @@ img {
         &.active {
           color: $color-button;
         }
+      }
+    }
+
+    .color {
+      z-index: 100;
+      background-color: $color-bg-1;
+      padding: 10px;
+      position: absolute;
+      bottom: 0;
+      border-radius: 10px;
+
+      .info {
+        display: flex;
+        padding-bottom: 10px;
+        justify-content: space-between;
+      }
+
+      span {
+        display: block;
       }
     }
   }

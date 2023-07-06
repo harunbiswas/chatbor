@@ -4,18 +4,34 @@ import { BiDotsVerticalRounded, BiSolidVolumeMute } from "react-icons/bi";
 import { IoSend } from "react-icons/io5";
 import { MdRestartAlt } from "react-icons/md";
 import { VscCopy } from "react-icons/vsc";
+import { useParams } from "react-router-dom";
 import ReactTyped from "react-typed";
 import values from "../values";
 import Audio from "./Audio";
+import Color from "./Color";
 
 export default function Chatbot() {
+  const { var1, name } = useParams();
+  const [isColor, setIscolor] = useState(false);
+  const [col, setCol] = useState("#6600ff");
+
   const body = useRef();
   const [chatData, setChatData] = useState([]);
   const [inputData, setInputData] = useState("");
   const [isLoading, setIsloading] = useState(false);
   const [isAudio, setIsAudio] = useState(false);
-  const { url, data } = values;
+  const { url } = values;
   const inputRef = useRef(null);
+
+  const data = {
+    uid: "-1",
+    sceneId:
+      "workspaces/default-1ekqgxmfrwwnaos46pmvgq/characters/" +
+      (var1 || "galadriel"),
+    characterId: "-1",
+    playerName: "Client",
+    serverId: "default-1ekqgxmfrwwnaos46pmvgq",
+  };
 
   useEffect(() => {
     scrollToBottom();
@@ -130,7 +146,7 @@ export default function Chatbot() {
           />
         </div>
         <div className="info">
-          <h4>Anna a It Consultant</h4>
+          <h4>{name || "Anna"} a It Consultant</h4>
         </div>
       </div>
       <div className="chatbot-body-wrp">
@@ -141,7 +157,7 @@ export default function Chatbot() {
                 key={i}
                 className={`chatbot-body-item ${(data?.user && "user") || ""}`}
               >
-                <div className="img">
+                <div className="img" style={{ background: col }}>
                   {(!data?.user && (
                     <img
                       src="https://consultantai.co/wp-content/uploads/2022/12/prod_img_5.jpg"
@@ -152,12 +168,12 @@ export default function Chatbot() {
                 </div>
                 <div className="info">
                   {(!data.user && data.audio && <Audio url={data.url} />) || (
-                    <p className="">
+                    <p style={{ background: data.user && col }}>
                       {(!data.user && (
                         <ReactTyped
                           strings={[data.message]}
-                          typeSpeed={100}
-                          backSpeed={100}
+                          typeSpeed={10}
+                          backSpeed={10}
                           cursorChar=""
                         />
                       )) ||
@@ -197,7 +213,7 @@ export default function Chatbot() {
               placeholder="Message anna It consaltant"
               value={inputData}
             />
-            <button>
+            <button style={{ color: col }}>
               <IoSend />
             </button>
           </form>
@@ -226,9 +242,12 @@ export default function Chatbot() {
           >
             <VscCopy />
           </button>{" "}
-          <button>
+          <button onClick={() => setIscolor(true)}>
             <BiDotsVerticalRounded />
           </button>
+          {isColor && (
+            <Color closeHandler={setIscolor} col={col} setCol={setCol} />
+          )}
         </div>
       </div>
     </div>
