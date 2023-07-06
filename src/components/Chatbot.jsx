@@ -4,6 +4,7 @@ import { BiDotsVerticalRounded, BiSolidVolumeMute } from "react-icons/bi";
 import { IoSend } from "react-icons/io5";
 import { MdRestartAlt } from "react-icons/md";
 import { VscCopy } from "react-icons/vsc";
+import ReactTyped from "react-typed";
 import values from "../values";
 import Audio from "./Audio";
 
@@ -151,7 +152,17 @@ export default function Chatbot() {
                 </div>
                 <div className="info">
                   {(!data.user && data.audio && <Audio url={data.url} />) || (
-                    <p className="">{data.message}</p>
+                    <p className="">
+                      {(!data.user && (
+                        <ReactTyped
+                          strings={[data.message]}
+                          typeSpeed={100}
+                          backSpeed={100}
+                          cursorChar=""
+                        />
+                      )) ||
+                        data.message}
+                    </p>
                   )}
                 </div>
               </div>

@@ -18,11 +18,17 @@ export default function Audio({ url }) {
   };
 
   useEffect(() => {
-    setDeuration(audio.current.duration);
+    if (audio.current.duration) {
+      setDeuration(audio.current.duration);
+    }
     const inter = setInterval(() => {
       setRange((audio.current.currentTime / audio.current.duration) * 100);
       setCurrentTime(audio.current.currentTime);
-    }, 100);
+
+      if (deuration === currentTime) {
+        setIsPlay(false);
+      }
+    }, 1);
     return () => {
       clearInterval(inter);
     };
