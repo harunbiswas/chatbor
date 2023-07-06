@@ -1,6 +1,6 @@
 const values = {};
 
-values.url = "http://ec2-54-242-160-39.compute-1.amazonaws.com:3000";
+values.url = "https://ec2-54-242-160-39.compute-1.amazonaws.com:3000";
 
 values.data = {
   uid: "-1",
